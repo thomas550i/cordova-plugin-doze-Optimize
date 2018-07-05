@@ -11,7 +11,7 @@ You have to install this plugin in to your cordova project
 What things you need to install the software and how to install them
 
 ```
-cordova.plugins.DozeOptimize https://github.com/thomas550i/cordova-plugin-doze-Optimize
+cordova plugin add https://github.com/thomas550i/cordova-plugin-doze-Optimize
 ```
 
 ### Usage 
