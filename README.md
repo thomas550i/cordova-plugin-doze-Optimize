@@ -4,7 +4,7 @@
 
 If you want to run your application in backround mode and it shoud standby even battery optimization enabled, then this Cordova plugin is used to check the doze or battery optimization status and also it help to request whitelist popup for battery optimization 
 
-###### Contributors are welcome! send Request to thomas550i@gmail.com
+
 
 ## Getting Started
 
@@ -73,3 +73,5 @@ cordova.plugins.DozeOptimize.IsIgnoringBatteryOptimizations(function (responce){
 ### Important notes
 
 Battery Optimization will work only Android 6.0 and higher. if you using this plugin below 6.0 you will get "BATTERY_OPTIMIZATIONS Not available" as a result. 
+
+# Contributors are welcome! send Request to thomas550i@gmail.com
