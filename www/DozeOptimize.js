@@ -7,3 +7,7 @@ exports.RequestOptimizations = function(success, error) {
 exports.IsIgnoringBatteryOptimizations = function(success, error) {
     exec(success, error, "DozeOptimize", "IsIgnoringBatteryOptimizations", []);
 };
+
+exports.RequestOptimizationsMenu = function(success, error) {
+    exec(success, error, "DozeOptimize", "RequestOptimizationsMenu", []);
+};
