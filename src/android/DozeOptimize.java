@@ -32,15 +32,16 @@ public class DozeOptimize extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-		
+
+        Context context = cordova.getActivity().getApplicationContext();
+        String packageName = context.getPackageName();
+
 		if (action.equals("IsIgnoringBatteryOptimizations")) {
             try {
-				
+
 				if (Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP_MR1) {
-					
+
 					String message ="";
-					Context context = cordova.getActivity().getApplicationContext();
-					String packageName = context.getPackageName();
 					PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 					if (pm.isIgnoringBatteryOptimizations(packageName)) {
 						message ="true";
@@ -48,7 +49,7 @@ public class DozeOptimize extends CordovaPlugin {
 					else
 					{
 						message ="false";
-					}		
+					}
 					callbackContext.success(message);
 					return true;
 				}
@@ -61,24 +62,19 @@ public class DozeOptimize extends CordovaPlugin {
                 callbackContext.error("N/A");
                 return false;
             }
-        }
-		
-		
-		if (action.equals("RequestOptimizations")) {
+        }else if (action.equals("RequestOptimizations")) {
             try {
-				
+
 				if (Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP_MR1) {
-					
+
 					String message ="Optimizations Requested Successfully";
-					Context context = cordova.getActivity().getApplicationContext();
-					String packageName = context.getPackageName();
-					
-						Intent intent = new Intent();
-						intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-						intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-						intent.setData(Uri.parse("package:" + packageName));
-							context.startActivity(intent);		
-							
+
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.setData(Uri.parse("package:" + packageName));
+                        context.startActivity(intent);
+
 					callbackContext.success(message);
 					return true;
 				}
@@ -91,10 +87,32 @@ public class DozeOptimize extends CordovaPlugin {
                 callbackContext.error("N/A");
                 return false;
             }
+        } else if (action.equals("RequestOptimizationsMenu")) {
+            try {
+
+                if (Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP_MR1) {
+
+					Intent intent = new Intent();
+                    PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                    if (pm.isIgnoringBatteryOptimizations(packageName)){
+                        intent.setAction(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+                    }
+
+                    callbackContext.success("requested");
+                    return true;
+                }
+                else
+                {
+                    callbackContext.error("BATTERY_OPTIMIZATIONS Not available");
+                    return false;
+                }
+            } catch (Exception e) {
+                callbackContext.error("N/A");
+                return false;
+            }
         }
-		
         return false;
     }
-
-   
 }
