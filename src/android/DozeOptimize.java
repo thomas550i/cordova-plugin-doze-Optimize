@@ -19,7 +19,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.util.Base64;
 import android.net.Uri;
-import android.net.ConnectivityManager
+import android.net.ConnectivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
