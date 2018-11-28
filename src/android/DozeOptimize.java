@@ -126,7 +126,7 @@ public class DozeOptimize extends CordovaPlugin {
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
                 if (connMgr.isActiveNetworkMetered()) {
-                    switch (connectivityManager.getRestrictBackgroundStatus())
+                    switch (connMgr.getRestrictBackgroundStatus())
                     {
                         case RESTRICT_BACKGROUND_STATUS_WHITELISTED:
                             // The app is whitelisted. Wherever possible,
