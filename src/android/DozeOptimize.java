@@ -117,7 +117,7 @@ public class DozeOptimize extends CordovaPlugin {
                 callbackContext.error("N/A");
                 return false;
             }
-        }else if(action.equals("IsIgnoringDataSaver") {
+        }else if(action.equals("IsIgnoringDataSaver")) {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
