@@ -126,23 +126,25 @@ public class DozeOptimize extends CordovaPlugin {
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
                 if (connMgr.isActiveNetworkMetered()) {
-                    switch (connectivityManager.getRestrictBackgroundStatus()) {
-                        case RESTRICT_BACKGROUND_STATUS_ENABLED:
-                            // Background data usage is blocked for this app. Wherever possible,
-                            // the app should also use less data in the foreground.
-                            binding.textView.setText("Enabled Data Saver.");
-                            break;
+                    switch (connectivityManager.getRestrictBackgroundStatus())
+                    {
                         case RESTRICT_BACKGROUND_STATUS_WHITELISTED:
                             // The app is whitelisted. Wherever possible,
                             // the app should use less data in the foreground and background.
-                            binding.textView.setText("The app is whitelisted.");
+                            message = "true";
                             break;
+
+                        case RESTRICT_BACKGROUND_STATUS_ENABLED:
+                            // Background data usage is blocked for this app. Wherever possible,
+                            // the app should also use less data in the foreground.
                         case RESTRICT_BACKGROUND_STATUS_DISABLED:
                             // Data Saver is disabled. Since the device is connected to a
                             // metered network, the app should use less data wherever possible.
-                            binding.textView.setText("Disabled Data Saver.");
+                             message = "false";
                             break;
                     }
+                    callbackContext.success(message);
+                    return true;
                 }else{
                     callbackContext.error("The device is not on a metered network.");
                     return false;
