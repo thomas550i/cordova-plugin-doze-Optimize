@@ -8,6 +8,10 @@ exports.IsIgnoringBatteryOptimizations = function(success, error) {
     exec(success, error, "DozeOptimize", "IsIgnoringBatteryOptimizations", []);
 };
 
+exports.IsIgnoringDataSaver = function(success, error) {
+    exec(success, error, "DozeOptimize", "IsIgnoringDataSaver", []);
+};
+
 exports.RequestOptimizationsMenu = function(success, error) {
     exec(success, error, "DozeOptimize", "RequestOptimizationsMenu", []);
 };
