@@ -176,5 +176,5 @@ public class DozeOptimize extends CordovaPlugin {
             }
         }
         return false;
-}
+    }
 }
