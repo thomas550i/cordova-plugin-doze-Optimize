@@ -123,24 +123,23 @@ public class DozeOptimize extends CordovaPlugin {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
                     String message ="";
-                    ConnectivityManager connMgr = (ConnectivityManager)
-                    context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                    ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
                     switch (connMgr.getRestrictBackgroundStatus())
                     {
-                        case RESTRICT_BACKGROUND_STATUS_WHITELISTED:
+                        case RESTRICT_BACKGROUND_STATUS_ENABLED:
                             // The app is whitelisted. Wherever possible,
                             // the app should use less data in the foreground and background.
-                            message = "true";
+                            message = "false";
                             break;
 
-                        case RESTRICT_BACKGROUND_STATUS_ENABLED:
+                        case RESTRICT_BACKGROUND_STATUS_WHITELISTED:
                             // Background data usage is blocked for this app. Wherever possible,
                             // the app should also use less data in the foreground.
                         case RESTRICT_BACKGROUND_STATUS_DISABLED:
                             // Data Saver is disabled. Since the device is connected to a
                             // metered network, the app should use less data wherever possible.
-                             message = "false";
+                             message = "true";
                             break;
                     }
                     callbackContext.success(message);
