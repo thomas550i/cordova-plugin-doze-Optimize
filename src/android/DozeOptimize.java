@@ -15,6 +15,7 @@ import org.apache.cordova.PluginResult.Status;
 
 
 
+
 import android.os.Build;
 import android.os.Environment;
 import android.util.Base64;
@@ -118,14 +119,13 @@ public class DozeOptimize extends CordovaPlugin {
                 return false;
             }
         }else if(action.equals("IsIgnoringDataSaver")) {
+             try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    String message ="";
+                    ConnectivityManager connMgr = (ConnectivityManager)
+                    context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-                String message ="";
-                ConnectivityManager connMgr = (ConnectivityManager)
-                context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-                if (connMgr.isActiveNetworkMetered()) {
                     switch (connMgr.getRestrictBackgroundStatus())
                     {
                         case RESTRICT_BACKGROUND_STATUS_WHITELISTED:
@@ -145,15 +145,15 @@ public class DozeOptimize extends CordovaPlugin {
                     }
                     callbackContext.success(message);
                     return true;
-                }else{
-                    callbackContext.error("The device is not on a metered network.");
+
+                }
+                else
+                {
+                    callbackContext.error("DATA_SAVER Not available");
                     return false;
                 }
-
-            }
-            else
-            {
-                callbackContext.error("DATA_SAVER Not available");
+            } catch (Exception e) {
+                callbackContext.error("N/A");
                 return false;
             }
         }
