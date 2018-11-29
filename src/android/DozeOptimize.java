@@ -42,28 +42,28 @@ public class DozeOptimize extends CordovaPlugin {
         Context context = cordova.getActivity().getApplicationContext();
         String packageName = context.getPackageName();
 
-		if (action.equals("IsIgnoringBatteryOptimizations")) {
+        if (action.equals("IsIgnoringBatteryOptimizations")) {
             try {
 
-				if (Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP_MR1) {
+                if (Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP_MR1) {
 
-					String message ="";
-					PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-					if (pm.isIgnoringBatteryOptimizations(packageName)) {
-						message ="true";
-					}
-					else
-					{
-						message ="false";
-					}
-					callbackContext.success(message);
-					return true;
-				}
-				else
-				{
-					callbackContext.error("BATTERY_OPTIMIZATIONS Not available.");
-					return false;
-				}
+                    String message ="";
+                    PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                    if (pm.isIgnoringBatteryOptimizations(packageName)) {
+                        message ="true";
+                    }
+                    else
+                    {
+                        message ="false";
+                    }
+                    callbackContext.success(message);
+                    return true;
+                }
+                else
+                {
+                    callbackContext.error("BATTERY_OPTIMIZATIONS Not available.");
+                    return false;
+                }
             } catch (Exception e) {
                 callbackContext.error("IsIgnoringBatteryOptimizations: failed N/A");
                 return false;
@@ -71,9 +71,9 @@ public class DozeOptimize extends CordovaPlugin {
         }else if (action.equals("RequestOptimizations")) {
             try {
 
-				if (Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP_MR1) {
+                if (Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP_MR1) {
 
-					String message ="Optimizations Requested Successfully";
+                    String message ="Optimizations Requested Successfully";
 
                     Intent intent = new Intent();
                     intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
@@ -81,14 +81,14 @@ public class DozeOptimize extends CordovaPlugin {
                     intent.setData(Uri.parse("package:" + packageName));
                         context.startActivity(intent);
 
-					callbackContext.success(message);
-					return true;
-				}
-				else
-				{
-					callbackContext.error("BATTERY_OPTIMIZATIONS Not available.");
-					return false;
-				}
+                    callbackContext.success(message);
+                    return true;
+                }
+                else
+                {
+                    callbackContext.error("BATTERY_OPTIMIZATIONS Not available.");
+                    return false;
+                }
             } catch (Exception e) {
                 callbackContext.error("N/A");
                 return false;
@@ -98,7 +98,7 @@ public class DozeOptimize extends CordovaPlugin {
 
                 if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
 
-					Intent intent = new Intent();
+                    Intent intent = new Intent();
                     PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                     if (pm.isIgnoringBatteryOptimizations(packageName)){
                         intent.setAction(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
@@ -155,27 +155,26 @@ public class DozeOptimize extends CordovaPlugin {
                 callbackContext.error("IsIgnoringDataSaver: failed N/A");
                 return false;
             }
-        }
-        return false;
-    } else  if (action.equals("RequestDataSaverMenu")) {
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        }else  if (action.equals("RequestDataSaverMenu")) {
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Intent intent = new Intent();
+                    ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                    intent.setAction(Settings.ACTION_IGNORE_BACKGROUND_DATA_RESTRICTIONS_SETTINGS);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
 
-                Intent intent = new Intent();
-                ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-                intent.setAction(Settings.ACTION_IGNORE_BACKGROUND_DATA_RESTRICTIONS_SETTINGS);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-
-                callbackContext.success("requested");
-                return true;
-            }else{
-                callbackContext.error("DATA_SAVER Not available.");
+                    callbackContext.success("requested");
+                    return true;
+                }else{
+                    callbackContext.error("DATA_SAVER Not available.");
+                    return false;
+                }
+            } catch (Exception e) {
+                callbackContext.error("RequestDataSaverMenu failed: N/A");
                 return false;
             }
-        } catch (Exception e) {
-            callbackContext.error("RequestDataSaverMenu failed: N/A");
-            return false;
         }
-    }
+        return false;
+}
 }
