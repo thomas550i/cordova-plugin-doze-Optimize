@@ -160,8 +160,10 @@ public class DozeOptimize extends CordovaPlugin {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     Intent intent = new Intent();
                     ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
                     intent.setAction(Settings.ACTION_IGNORE_BACKGROUND_DATA_RESTRICTIONS_SETTINGS);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.setData(Uri.parse("package:" + packageName));
                     context.startActivity(intent);
 
                     callbackContext.success("requested");
