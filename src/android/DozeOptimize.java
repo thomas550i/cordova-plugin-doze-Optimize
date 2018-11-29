@@ -61,11 +61,11 @@ public class DozeOptimize extends CordovaPlugin {
 				}
 				else
 				{
-					callbackContext.error("BATTERY_OPTIMIZATIONS Not available");
+					callbackContext.error("BATTERY_OPTIMIZATIONS Not available.");
 					return false;
 				}
             } catch (Exception e) {
-                callbackContext.error("N/A");
+                callbackContext.error("IsIgnoringBatteryOptimizations: failed N/A");
                 return false;
             }
         }else if (action.equals("RequestOptimizations")) {
@@ -86,7 +86,7 @@ public class DozeOptimize extends CordovaPlugin {
 				}
 				else
 				{
-					callbackContext.error("BATTERY_OPTIMIZATIONS Not available");
+					callbackContext.error("BATTERY_OPTIMIZATIONS Not available.");
 					return false;
 				}
             } catch (Exception e) {
@@ -111,11 +111,11 @@ public class DozeOptimize extends CordovaPlugin {
                 }
                 else
                 {
-                    callbackContext.error("BATTERY_OPTIMIZATIONS Not available");
+                    callbackContext.error("BATTERY_OPTIMIZATIONS Not available.");
                     return false;
                 }
             } catch (Exception e) {
-                callbackContext.error("N/A");
+                callbackContext.error("RequestOptimizationsMenu: failed N/A");
                 return false;
             }
         }else if(action.equals("IsIgnoringDataSaver")) {
@@ -148,14 +148,34 @@ public class DozeOptimize extends CordovaPlugin {
                 }
                 else
                 {
-                    callbackContext.error("DATA_SAVER Not available");
+                    callbackContext.error("DATA_SAVER Not available.");
                     return false;
                 }
             } catch (Exception e) {
-                callbackContext.error("N/A");
+                callbackContext.error("IsIgnoringDataSaver: failed N/A");
                 return false;
             }
         }
         return false;
+    } else  if (action.equals("RequestDataSaverMenu")) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+                Intent intent = new Intent();
+                ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                intent.setAction(Settings.ACTION_IGNORE_BACKGROUND_DATA_RESTRICTIONS_SETTINGS);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+
+                callbackContext.success("requested");
+                return true;
+            }else{
+                callbackContext.error("DATA_SAVER Not available.");
+                return false;
+            }
+        } catch (Exception e) {
+            callbackContext.error("RequestDataSaverMenu failed: N/A");
+            return false;
+        }
     }
 }

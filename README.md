@@ -2,7 +2,9 @@
 
 # Whitelisting an Android application programmatically 
 
-If you want to run your application in backround mode and it shoud standby even battery optimization enabled, then this Cordova plugin is used to check the doze or battery optimization status and also it help to request whitelist popup for battery optimization 
+If you want to run your application in background mode and it should standby even battery optimization enabled, then this Cordova plugin is used to check the doze or battery optimization status and also it help to request whitelist popup for battery optimization.
+
+This will also help check if your app is whitelisted from the Data Saver options in Android 7+ 
 
 
 
@@ -39,14 +41,29 @@ cordova.plugins.DozeOptimize.IsIgnoringBatteryOptimizations(function (responce){
     });
 ```
 
+```
+   cordova.plugins.DozeOptimize.IsIgnoringDataSaver(function (response){
+        if(responce=="false")
+        {
+            console.log("Application not Ignoring data saver");
+        }
+        else
+        {
+            console.log("Application already Ignoring data saver and is probably whitelisted.");
+        }		
+   }, function (error){
+       console.log(error);
+   }); 
+```
+
 Sample Code to Popup ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS to whitelist your app.
 
 ```
- cordova.plugins.DozeOptimize.RequestOptimizations(function (responce){
-              console.log(responce); // Will give "Optimizations Requested Successfully"
-            }, function (error){
-            console.error("BatteryOptimizations Request Error"+error);			
-            });
+    cordova.plugins.DozeOptimize.RequestOptimizations(function (responce){
+        console.log(responce); // Will give "Optimizations Requested Successfully"
+    }, function (error){
+        console.error("BatteryOptimizations Request Error"+error);			
+    });
 ```
 
 Full Code of usage with step one and two

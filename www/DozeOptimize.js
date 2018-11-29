@@ -15,3 +15,7 @@ exports.IsIgnoringDataSaver = function(success, error) {
 exports.RequestOptimizationsMenu = function(success, error) {
     exec(success, error, "DozeOptimize", "RequestOptimizationsMenu", []);
 };
+
+exports.RequestDataSaverMenu = function(success, error) {
+    exec(success, error, "DozeOptimize", "RequestDataSaverMenu", []);
+};
