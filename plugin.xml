@@ -1,16 +1,20 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="cordova.plugins.DozeOptimize" version="0.1.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android"><name>DozeOptimize</name>
-<js-module name="DozeOptimize" src="www/DozeOptimize.js">
-	<clobbers target="cordova.plugins.DozeOptimize" />
-</js-module>
-<platform name="android">
-	<config-file parent="/*" target="res/xml/config.xml">
-		<feature name="DozeOptimize">
-			<param name="android-package" value="cordova.plugins.DozeOptimize.DozeOptimize" />
-		</feature>
-	</config-file>
-	<config-file parent="/*" target="AndroidManifest.xml">
-		<uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
-	</config-file>
-	
-	<source-file src="src/android/DozeOptimize.java" target-dir="src/cordova/plugins/DozeOptimize/DozeOptimize" /></platform></plugin>
+<plugin id="cordova.plugins.DozeOptimize" version="0.1.3" xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>DozeOptimize</name>
+    <js-module name="DozeOptimize" src="www/DozeOptimize.js">
+        <clobbers target="cordova.plugins.DozeOptimize"/>
+    </js-module>
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="DozeOptimize">
+                <param name="android-package" value="cordova.plugins.DozeOptimize.DozeOptimize"/>
+            </feature>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml">
+            <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+        </config-file>
+
+        <source-file src="src/android/DozeOptimize.java" target-dir="src/cordova/plugins/DozeOptimize/DozeOptimize"/>
+    </platform>
+</plugin>
